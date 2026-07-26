@@ -27,13 +27,14 @@ resource "aws_key_pair" "main" {
 # Create EC2 Instance
 resource "aws_instance" "app_server" {
 
-  ami                    = data.aws_ami.amazon_linux.id   # Use the latest Amazon Linux 2023 AMI from the data source
-  instance_type          = "t3.micro"                     # Launch a t3.micro EC2 instance
-  subnet_id              = aws_subnet.public[0].id        # Launch the EC2 in the first public subnet
-  vpc_security_group_ids = [aws_security_group.web_sg.id] # Attach the web Security Group to the EC2 instance
-  key_name               = aws_key_pair.main.key_name     # Attach the AWS Key Pair for SSH access
-  tags = merge(                                           # Merge common tags with resource-specific tags
-    local.common_tags,                                    # Common tags shared across all resources
+  ami                    = data.aws_ami.amazon_linux.id              # Use the latest Amazon Linux 2023 AMI from the data source
+  instance_type          = "t3.micro"                                # Launch a t3.micro EC2 instance
+  subnet_id              = aws_subnet.public[0].id                   # Launch the EC2 in the first public subnet
+  vpc_security_group_ids = [aws_security_group.web_sg.id]            # Attach the web Security Group to the EC2 instance
+  iam_instance_profile   = aws_iam_instance_profile.ec2_profile.name # Attach IAM Role to EC2
+  key_name               = aws_key_pair.main.key_name                # Attach the AWS Key Pair for SSH access
+  tags = merge(                                                      # Merge common tags with resource-specific tags
+    local.common_tags,                                               # Common tags shared across all resources
     {
       Name = "${local.project_name}-ec2" # Name tag displayed in the AWS Console
     }
