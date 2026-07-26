@@ -6,11 +6,11 @@ resource "aws_security_group" "web_sg" {
   vpc_id      = aws_vpc.main.id                               # Attach this Security Group to our VPC
 
   ingress {
-    description = "Allow SSH"   # Rule description
-    from_port   = 22            # Start port
-    to_port     = 22            # End port
-    protocol    = "tcp"         # SSH uses TCP
-    cidr_blocks = ["0.0.0.0/0"] # Allow SSH from anywhere (Learning only - Production: use Your_IP/32)
+    description = "Allow SSH"          # Rule description
+    from_port   = 22                   # Start port
+    to_port     = 22                   # End port
+    protocol    = "tcp"                # SSH uses TCP
+    cidr_blocks = [var.ssh_allowed_ip] # Allow SSH from anywhere (Learning only - Production: use Your_IP/32)
   }
 
   ingress {

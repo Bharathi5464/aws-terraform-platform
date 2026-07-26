@@ -54,3 +54,8 @@ variable "private_subnet_cidrs" {
     "10.0.12.0/24"  # Private Subnet 2
   ]
 }
+# Public IP address allowed to SSH into the EC2 instance
+variable "ssh_allowed_ip" {
+  description = "Public IP address allowed to SSH into the EC2 instance (CIDR format)"
+  type        = string
+}
