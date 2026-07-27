@@ -37,7 +37,10 @@ resource "aws_security_group" "web_sg" {
     cidr_blocks = ["0.0.0.0/0"]                # Allow EC2 to connect anywhere on the Internet
   }
 
-  tags = {
-    Name = "web-security-group" # Resource name tag
+# Fix — add merge like every other resource
+tags = merge(
+  local.common_tags,
+  {
+    Name = "${local.project_name}-sg"
   }
-}
+)
