@@ -19,14 +19,19 @@ jobs:
         uses: hashicorp/setup-terraform@v3
 
       - name: Check Terraform Formatting
+        working-directory: terraform/main
         run: terraform fmt -check -recursive
       
       - name: Terraform Init
+        working-directory: terraform/main
         run: terraform init
       
       - name: Terraform Validate
+        working-directory: terraform/main
         run: terraform validate
+
       - name: Terraform Plan
+        working-directory: terraform/main
         run: terraform plan -out=tfplan
 
 
