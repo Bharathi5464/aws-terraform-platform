@@ -18,7 +18,7 @@ resource "aws_key_pair" "main" {
   key_name   = "${local.project_name}-key"                                # Name of the key pair that will be created in AWS
   public_key = file("${path.module}/keys/aws-terraform-platform-key.pub") # Read the public key from the local .pub file
   tags = merge(                                                           # Merge common tags with resource-specific tags
-    local.common_tags,                                                    # Common tags shared across all resources
+    local.common_tags,                                                    # Common tags shared across all resources.
     {
       Name = "${local.project_name}-key" # Name tag displayed in the AWS Console
     }
