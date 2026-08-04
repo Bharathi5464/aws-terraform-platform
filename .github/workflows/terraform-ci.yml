@@ -17,9 +17,13 @@ jobs:
           aws-region: ap-south-1
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
-        
+
       - name: Check Terraform Formatting
         run: terraform fmt -check -recursive
+      
+      - name: Terraform Init
+        run: terraform init
+
 
 
 
