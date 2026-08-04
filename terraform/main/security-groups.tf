@@ -29,6 +29,15 @@ resource "aws_security_group" "web_sg" {
     cidr_blocks = ["0.0.0.0/0"] # Allow everyone to access the secure website
   }
 
+  ingress {
+
+    description = "Allow TaskFlow application" # Allow inbound traffic to the TaskFlow application
+    from_port   = 5000                         # Start of the allowed port range (Port 5000)
+    to_port     = 5000                         # End of the allowed port range (Port 5000)
+    protocol    = "tcp"                        # Allow TCP traffic only
+    cidr_blocks = ["0.0.0.0/0"]                # Allow access from any IPv4 address on the internet
+  }
+
   egress {
     description = "Allow all outbound traffic" # Outbound rule description
     from_port   = 0                            # Start from all ports
