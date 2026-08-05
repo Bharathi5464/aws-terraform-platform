@@ -6,6 +6,12 @@ on:
 jobs:
   terraform-ci:
     runs-on: ubuntu-latest
+    env:
+      TF_VAR_aws_region: ap-south-1
+      TF_VAR_environment: dev
+      TF_VAR_project_name: aws-terraform-platform
+      TF_VAR_vpc_cidr: 10.0.0.0/16
+      TF_VAR_ssh_allowed_ip: 0.0.0.0/0
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -29,10 +35,17 @@ jobs:
       - name: Terraform Validate
         working-directory: terraform/main
         run: terraform validate
+      
+      - name: Terraform State List
+        working-directory: terraform/main
+        run: terraform state list
 
       - name: Terraform Plan
         working-directory: terraform/main
-        run: terraform plan -out=tfplan
+        run: |
+          echo "Starting Terraform Plan..."
+          terraform plan -input=false -lock-timeout=60s -out=tfplan
+          echo "Terraform Plan Completed."
 
 
 
