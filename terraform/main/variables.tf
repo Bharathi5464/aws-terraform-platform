@@ -3,6 +3,7 @@ variable "aws_region" {
   description = "AWS Region where resources will be created" # AWS Region
   type        = string                                       # Variable data type
 }
+# when run locally only tfvars will work in cicd we need to make env in ci workflows
 
 # Deployment environment variable
 variable "environment" {
