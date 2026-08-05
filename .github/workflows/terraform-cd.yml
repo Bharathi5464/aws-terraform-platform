@@ -1,9 +1,0 @@
-name: Terraform CD Pipeline
-on:
-  workflow_dispatch:
-jobs:
-  terraform-cd:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
